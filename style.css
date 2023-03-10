@@ -1,0 +1,107 @@
+/* * {
+    box-sizing: border-box;
+  }
+  html {
+    font-family: helvetica;
+  }
+  
+  html, body {
+    max-width: 100vw;
+  }
+  
+  table {
+   margin: auto;
+    border-collapse: collapse;
+    overflow-x: auto;
+    display: block;
+    width: fit-content;
+    max-width: 100%;
+    box-shadow: 0 0 1px 1px rgba(0, 0, 0, .1);
+  }
+  
+  td, th {
+    border: solid rgb(200, 200, 200) 1px;
+    padding: .5rem;
+  }
+  
+  th {
+    text-align: left;
+    background-color: rgb(190, 220, 250);
+    text-transform: uppercase;
+    padding-top: 1rem;
+    padding-bottom: 1rem;
+    border-bottom: rgb(50, 50, 100) solid 2px;
+    border-top: none;
+  }
+  
+  td {
+    white-space: nowrap;
+    border-bottom: none;
+    color: rgb(20, 20, 20);
+  }
+  
+  td:first-of-type, th:first-of-type {
+    border-left: none;
+  }
+  
+  td:last-of-type, th:last-of-type {
+    border-right: none;
+  } */
+  /* input{
+    width: 6em;
+  } */
+
+  table {
+    /* margin: auto;  */
+      /* border-collapse: collapse;  */
+     margin-bottom: 6em;
+     overflow-x: auto;
+      overflow-y: auto;  
+     display:   block;
+     width: 100%;
+     min-width: max-content;
+      height: 30em;
+     table-layout: fixed; 
+     border-color: rgb(0, 0, 0);
+     border-width: 3px;
+
+    
+     box-shadow: 0 0 1px 1px rgba(0, 0, 0, .1);
+   }
+
+   td, th {
+    border: solid rgb(200, 200, 200) 1px;
+    /* padding-right: 0.1rem; */
+    width: 125px;
+    min-width: 125px;
+    /* max-width: 125px; */
+  }
+
+  th{
+    background-color: rgb(146, 146, 255);
+  }
+
+  .hide{
+    display: none;
+  }
+
+  body{
+    background-color: beige;
+  }
+
+  input{
+    width: 6em;
+  }
+
+  .id-hide, .first-name-hide, .last-name-hide, .email-hide, .gender-hide, .city-hide, .phone-hide, .title-hide, .salary-hide{
+    display: none;
+  }
+
+  .container{
+    width:85%;
+    align-items: center;
+    margin-left: auto;
+    margin-right: auto;
+  }
+
+ 

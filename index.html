@@ -1,0 +1,47 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" href="./style.css" />
+    <title>Employee Details App</title>
+</head>
+<body>
+    <div class="container">
+    <h1>Employees</h1>
+    <table class="employee__table"  width="100%" border="1" cellspacing="2" cellpadding="3">
+        <tr>
+        <form class="filter__form">
+          <th class="header header--id no-sort">ID<span class="sort-arrow"></span></span><div><input type="text" class="input--id"></div></th>
+          <th class="header header--first-name no-sort">First Name<span class="sort-arrow"></span><div><input type="text" class="input--first-name"></div></th>
+          <th class="header header--last-name no-sort">Last Name<span class="sort-arrow"></span><div><input type="text" class="input--last-name"></div></th>
+          <th class="header header--email no-sort">Email<span class="sort-arrow"></span><div><input type="text" class="input--email"></div></th>
+          <th class="header header--gender no-sort">Gender<span class="sort-arrow"></span><div><select class="input--gender"><option value="all">All</option><option value="male">Male</option><option value="female">Female</option></select></th>
+          <th class="header header--city no-sort">City<span class="sort-arrow"></span><div><input type="text" class="input--city"></div></th>
+          <th class="header header--phone no-sort">Phone<span class="sort-arrow"></span><div><input type="text" class="input--phone"></div></th>
+          <th class="header header--title no-sort">Job Title<span class="sort-arrow"></span><div><input type="text" class="input--title"></div></th>
+          <th class="header header--salary no-sort">Salary<span class="sort-arrow"></span><div><input type="text" class="input--salary"></div></th>
+        </form>
+        </tr>
+        <tbody class="employee__table--body">
+        </tbody>
+        <!-- <tr>
+            <th>ID</th>
+            <th>First Name</th>
+            <th>Last Name</th>
+            <th>Email</th>
+            <th>Gender</th>
+            <th>City</th>
+            <th>Phone</th>
+            <th>Job Title</th>
+            <th>Salary</th>
+          </tr> -->
+        
+      </table>
+    </div>
+    <script type="module" src="./script2.js"></script>
+</body>
+</html>
+
+<!-- "id":1,"first_name":"Olly","last_name":"Castan","email":"ocastan0@cam.ac.uk","gender":"Female","City":"San Francisco","phone":"519-783-9278","Job Title":"Dental Hygienist","Salary":"$78781.84" -->
