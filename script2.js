@@ -54,6 +54,14 @@ const renderAllEmployees = function (employees) {
   employeeTable.innerHTML = htmlMarkup;
 };
 
+const renderRows = function (rowElementsArray) {
+  let htmlMarkup = ``;
+  rowElementsArray.forEach((rowElement) => {
+    htmlMarkup += rowElement.outerHTML;
+  });
+  employeeTable.innerHTML = htmlMarkup;
+};
+
 renderAllEmployees(employees);
 
 const genderColumn = document.querySelectorAll("#col-5");
@@ -349,52 +357,94 @@ const filterBySalary = function (inputValue) {
 //-------------------------------------------SORTERS------------------------------------------------------
 const headers = document.querySelectorAll(".header");
 
-const setSort = function (exceptHeader) {
+const sortByNumber = function (columnName, sortOrder) {
+  let col;
+  if (columnName === "id") col = 1;
+  if (columnName === "salary") col = 9;
+
+  const allRowsArray = Array.from(allRows);
+
+  if (sortOrder === "no-sort") {
+    return allRowsArray;
+  }
+
+  allRowsArray.sort((rowElement1, rowElement2) => {
+    const a = +rowElement1.querySelector(`#col-${col}`).innerHTML;
+    const b = +rowElement2.querySelector(`#col-${col}`).innerHTML;
+    if (sortOrder === "ascending") return a - b;
+    else if (sortOrder === "descending") return b - a;
+  });
+  // allRowsArray.forEach((rowElement) => {
+  //   console.log(rowElement.querySelector(`#col-${col}`).innerHTML);
+  // });
+  return allRowsArray;
+};
+
+const sortByString = function (columnName, sortOrder) {
+  let col;
+  if (columnName === "first-name") col = 2;
+  if (columnName === "last-name") col = 3;
+  if (columnName === "email") col = 4;
+  if (columnName === "city") col = 6;
+  if (columnName === "phone") col = 7;
+  if (columnName === "title") col = 8;
+
+  const allRowsArray = Array.from(allRows);
+
+  if (sortOrder === "no-sort") {
+    return allRowsArray;
+  }
+
+  allRowsArray.sort((rowElement1, rowElement2) => {
+    const string1 = rowElement1.querySelector(`#col-${col}`).innerHTML;
+    const string2 = rowElement2.querySelector(`#col-${col}`).innerHTML;
+    if (string1 < string2) {
+      if (sortOrder === "ascending") return -1;
+      else if (sortOrder === "descending") return 1;
+    }
+    if (string1 > string2) {
+      if (sortOrder === "ascending") return 1;
+      else if (sortOrder === "descending") return -1;
+    }
+    return 0;
+  });
+  // allRowsArray.forEach((rowElement) => {
+  //   console.log(rowElement.querySelector(`#col-${col}`).innerHTML);
+  // });
+  return allRowsArray;
+};
+
+const setSort = function (exceptHeader, sortOrder) {
   headers.forEach((header) => {
-    console.log(header.className);
+    // console.log(header.className);
     if (!header.className.includes(exceptHeader)) {
       header.classList.remove("sort-ascending");
       header.classList.remove("sort-descending");
       header.classList.add("no-sort");
     }
-
-    if (header.className.includes("sort-descending"))
+    if (header.className.includes("sort-descending")) {
       header.querySelector(".sort-arrow").innerHTML = "&darr;";
-    else if (header.className.includes("sort-ascending"))
+    } else if (header.className.includes("sort-ascending")) {
       header.querySelector(".sort-arrow").innerHTML = "&uarr;";
-    else header.querySelector(".sort-arrow").innerHTML = "";
-  });
-};
-
-const sortById = function (order) {
-  allRows.sort((row1, row2) => {
-    if (order === "ascending")
-      return (
-        +row1.querySelector("#col-1").innerHTML.toLowerCase() -
-        +row2.querySelector("#col-1").innerHTML.toLowerCase()
-      );
-    else {
-      return (
-        +row2.querySelector("#col-1").innerHTML.toLowerCase() -
-        +row1.querySelector("#col-1").innerHTML.toLowerCase()
-      );
+    } else if (header.className.includes("no-sort")) {
+      header.querySelector(".sort-arrow").innerHTML = "";
     }
   });
+
+  if (exceptHeader === "id" || exceptHeader === "salary") {
+    renderRows(sortByNumber(exceptHeader, sortOrder));
+  } else if (
+    exceptHeader === "first-name" ||
+    exceptHeader === "last-name" ||
+    exceptHeader === "email" ||
+    exceptHeader === "city" ||
+    exceptHeader === "phone" ||
+    exceptHeader === "title"
+  ) {
+    renderRows(sortByString(exceptHeader, sortOrder));
+  }
+  console.log(exceptHeader, sortOrder);
 };
-
-const sortByFirstName = function (order) {};
-
-const sortByLastName = function (order) {};
-
-const sortByEmail = function (order) {};
-
-const sortByCity = function (order) {};
-
-const sortByPhone = function (order) {};
-
-const sortByTitle = function (order) {};
-
-const sortBySalary = function (order) {};
 
 //-----------------------------------------EVENT-LISTENERS------------------------------------------------
 inputId.addEventListener("keyup", function (e) {
@@ -489,116 +539,147 @@ inputSalary.addEventListener("keyup", function (e) {
 });
 
 headerId.addEventListener("click", function (e) {
+  let sortOrder;
   if (this.classList.contains("no-sort")) {
     this.classList.remove("no-sort");
     this.classList.add("sort-ascending");
-    sortById("ascending");
+    sortOrder = "ascending";
   } else if (this.classList.contains("sort-ascending")) {
     this.classList.remove("sort-ascending");
     this.classList.add("sort-descending");
-    sortById("descending");
+    sortOrder = "descending";
   } else if (this.classList.contains("sort-descending")) {
     this.classList.remove("sort-descending");
     this.classList.add("no-sort");
+    sortOrder = "no-sort";
   }
-  setSort("id");
+  setSort("id", sortOrder);
+
   //   console.log(headerId.className);
 });
 
 headerFirstName.addEventListener("click", function (e) {
+  let sortOrder;
   if (this.classList.contains("no-sort")) {
     this.classList.remove("no-sort");
     this.classList.add("sort-ascending");
+    sortOrder = "ascending";
   } else if (this.classList.contains("sort-ascending")) {
     this.classList.remove("sort-ascending");
     this.classList.add("sort-descending");
+    sortOrder = "descending";
   } else if (this.classList.contains("sort-descending")) {
     this.classList.remove("sort-descending");
     this.classList.add("no-sort");
+    sortOrder = "no-sort";
   }
-  setSort("first-name");
+  setSort("first-name", sortOrder);
 });
 
 headerLastName.addEventListener("click", function (e) {
+  let sortOrder;
   if (this.classList.contains("no-sort")) {
     this.classList.remove("no-sort");
     this.classList.add("sort-ascending");
+    sortOrder = "ascending";
   } else if (this.classList.contains("sort-ascending")) {
     this.classList.remove("sort-ascending");
     this.classList.add("sort-descending");
+    sortOrder = "descending";
   } else if (this.classList.contains("sort-descending")) {
     this.classList.remove("sort-descending");
     this.classList.add("no-sort");
+    sortOrder = "no-sort";
   }
-  setSort("last-name");
+  setSort("last-name", sortOrder);
 });
 
 headerEmail.addEventListener("click", function (e) {
+  let sortOrder;
   if (this.classList.contains("no-sort")) {
     this.classList.remove("no-sort");
     this.classList.add("sort-ascending");
+    sortOrder = "ascending";
   } else if (this.classList.contains("sort-ascending")) {
     this.classList.remove("sort-ascending");
     this.classList.add("sort-descending");
+    sortOrder = "descending";
   } else if (this.classList.contains("sort-descending")) {
     this.classList.remove("sort-descending");
     this.classList.add("no-sort");
+    sortOrder = "no-sort";
   }
-  setSort("email");
+  setSort("email", sortOrder);
 });
 
 headerCity.addEventListener("click", function (e) {
+  let sortOrder;
   if (this.classList.contains("no-sort")) {
     this.classList.remove("no-sort");
     this.classList.add("sort-ascending");
+    sortOrder = "ascending";
   } else if (this.classList.contains("sort-ascending")) {
     this.classList.remove("sort-ascending");
     this.classList.add("sort-descending");
+    sortOrder = "descending";
   } else if (this.classList.contains("sort-descending")) {
     this.classList.remove("sort-descending");
     this.classList.add("no-sort");
+    sortOrder = "no-sort";
   }
-  setSort("city");
+  setSort("city", sortOrder);
 });
 
 headerPhone.addEventListener("click", function (e) {
+  let sortOrder;
   if (this.classList.contains("no-sort")) {
     this.classList.remove("no-sort");
     this.classList.add("sort-ascending");
+    sortOrder = "ascending";
   } else if (this.classList.contains("sort-ascending")) {
     this.classList.remove("sort-ascending");
     this.classList.add("sort-descending");
+    sortOrder = "descending";
   } else if (this.classList.contains("sort-descending")) {
     this.classList.remove("sort-descending");
     this.classList.add("no-sort");
+    sortOrder = "no-sort";
   }
-  setSort("phone");
+  setSort("phone", sortOrder);
 });
 
 headerTitle.addEventListener("click", function (e) {
+  let sortOrder;
   if (this.classList.contains("no-sort")) {
     this.classList.remove("no-sort");
     this.classList.add("sort-ascending");
+    sortOrder = "ascending";
   } else if (this.classList.contains("sort-ascending")) {
     this.classList.remove("sort-ascending");
     this.classList.add("sort-descending");
+    sortOrder = "descending";
   } else if (this.classList.contains("sort-descending")) {
     this.classList.remove("sort-descending");
     this.classList.add("no-sort");
+    sortOrder = "no-sort";
   }
-  setSort("title");
+  setSort("title", sortOrder);
 });
 
 headerSalary.addEventListener("click", function (e) {
+  let sortOrder;
   if (this.classList.contains("no-sort")) {
     this.classList.remove("no-sort");
     this.classList.add("sort-ascending");
+    sortOrder = "ascending";
   } else if (this.classList.contains("sort-ascending")) {
     this.classList.remove("sort-ascending");
     this.classList.add("sort-descending");
+    sortOrder = "descending";
   } else if (this.classList.contains("sort-descending")) {
     this.classList.remove("sort-descending");
     this.classList.add("no-sort");
+    sortOrder = "no-sort";
   }
-  setSort("salary");
+  setSort("salary", sortOrder);
 });
