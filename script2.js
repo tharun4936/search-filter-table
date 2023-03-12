@@ -134,7 +134,6 @@ const filterById = function (inputValue) {
       rowElement.classList.remove("id-hide");
     } else {
       rowElement.classList.add("id-hide");
-      console.log(rowElement);
     }
   });
 };
@@ -241,18 +240,6 @@ const filterByCity = function (inputValue) {
     let expression;
     if (inputValue.startsWith("=")) {
       input = inputValue.slice(1).toLowerCase();
-      expression = value === input;
-      value, "===", input, expression;
-    } else if (inputValue.startsWith("!=")) {
-      input = inputValue.slice(2).toLowerCase();
-      expression = value !== input;
-      value, "!=", input, expression;
-    } else {
-      input = inputValue;
-      expression = value.includes(inputValue.toLowerCase());
-    }
-    if (expression) {
-      rowElement.classList.remove("city-hide");
     } else {
       rowElement.classList.add("city-hide");
     }
