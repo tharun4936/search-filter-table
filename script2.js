@@ -102,19 +102,15 @@ const filterById = function (inputValue) {
     ) {
       input = inputValue.slice(1).toLowerCase();
       expression = +value < +input;
-      value, "<", input, expression;
     } else if (inputValue.startsWith(">")) {
       input = inputValue.slice(1).toLowerCase();
       expression = +value > +input;
-      value, ">", input, expression;
     } else if (inputValue.startsWith("=")) {
       input = inputValue.slice(1).toLowerCase();
       expression = +value === +input;
-      value, "===", input, expression;
     } else if (inputValue.startsWith("!=")) {
       input = inputValue.slice(2).toLowerCase();
       expression = +value !== +input;
-      value, "!=", input, expression;
     } else if (
       inputValue.startsWith("<") &&
       inputValue.includes(",") &&
@@ -123,11 +119,9 @@ const filterById = function (inputValue) {
       const input1 = inputValue.split(",")[0].slice(1).toLowerCase();
       const input2 = inputValue.split(",")[1].slice(1).toLowerCase();
       expression = +value < +input1 && +value > +input2;
-      value, "|<| ", input1, "|&&|", value, "|>|", input2, expression;
     } else {
       input = inputValue;
       expression = value.includes(input.toLowerCase());
-      value, input, expression;
     }
 
     if (expression) {
@@ -147,11 +141,9 @@ const filterByFirstName = function (inputValue) {
     if (inputValue.startsWith("=")) {
       input = inputValue.slice(1).toLowerCase();
       expression = value === input;
-      value, "===", input, expression;
     } else if (inputValue.startsWith("!=")) {
       input = inputValue.slice(2).toLowerCase();
       expression = value !== input;
-      value, "!=", input, expression;
     } else {
       input = inputValue;
       expression = value.includes(inputValue.toLowerCase());
@@ -173,11 +165,9 @@ const filterByLastName = function (inputValue) {
     if (inputValue.startsWith("=")) {
       input = inputValue.slice(1).toLowerCase();
       expression = value === input;
-      value, "===", input, expression;
     } else if (inputValue.startsWith("!=")) {
       input = inputValue.slice(2).toLowerCase();
       expression = value !== input;
-      value, "!=", input, expression;
     } else {
       input = inputValue;
       expression = value.includes(inputValue.toLowerCase());
@@ -199,11 +189,9 @@ const filterByEmail = function (inputValue) {
     if (inputValue.startsWith("=")) {
       input = inputValue.slice(1).toLowerCase();
       expression = value === input;
-      value, "===", input, expression;
     } else if (inputValue.startsWith("!=")) {
       input = inputValue.slice(2).toLowerCase();
       expression = value !== input;
-      value, "!=", input, expression;
     } else {
       input = inputValue;
       expression = value.includes(inputValue.toLowerCase());
@@ -240,6 +228,16 @@ const filterByCity = function (inputValue) {
     let expression;
     if (inputValue.startsWith("=")) {
       input = inputValue.slice(1).toLowerCase();
+      expression = value === input;
+    } else if (inputValue.startsWith("!=")) {
+      input = inputValue.slice(2).toLowerCase();
+      expression = value !== input;
+    } else {
+      input = inputValue;
+      expression = value.includes(inputValue.toLowerCase());
+    }
+    if (expression) {
+      rowElement.classList.remove("city-hide");
     } else {
       rowElement.classList.add("city-hide");
     }
@@ -255,11 +253,9 @@ const filterByPhone = function (inputValue) {
     if (inputValue.startsWith("=")) {
       input = inputValue.slice(1).toLowerCase();
       expression = value === input;
-      value, "===", input, expression;
     } else if (inputValue.startsWith("!=")) {
       input = inputValue.slice(2).toLowerCase();
       expression = value !== input;
-      value, "!=", input, expression;
     } else {
       input = inputValue;
       expression = value.includes(inputValue.toLowerCase());
@@ -281,11 +277,9 @@ const filterByTitle = function (inputValue) {
     if (inputValue.startsWith("=")) {
       input = inputValue.slice(1).toLowerCase();
       expression = value === input;
-      value, "===", input, expression;
     } else if (inputValue.startsWith("!=")) {
       input = inputValue.slice(2).toLowerCase();
       expression = value !== input;
-      value, "!=", input, expression;
     } else {
       input = inputValue;
       expression = value.includes(inputValue.toLowerCase());
@@ -312,19 +306,15 @@ const filterBySalary = function (inputValue) {
     ) {
       input = inputValue.slice(1).toLowerCase();
       expression = +value < +input;
-      value, "<", input, expression;
     } else if (inputValue.startsWith(">")) {
       input = inputValue.slice(1).toLowerCase();
       expression = +value > +input;
-      value, ">", input, expression;
     } else if (inputValue.startsWith("=")) {
       input = inputValue.slice(1).toLowerCase();
       expression = +value === +input;
-      value, "===", input, expression;
     } else if (inputValue.startsWith("!=")) {
       input = inputValue.slice(2).toLowerCase();
       expression = +value !== +input;
-      value, "!=", input, expression;
     } else if (
       inputValue.startsWith("<") &&
       inputValue.includes(",") &&
@@ -333,11 +323,9 @@ const filterBySalary = function (inputValue) {
       const input1 = inputValue.split(",")[0].slice(1).toLowerCase();
       const input2 = inputValue.split(",")[1].slice(1).toLowerCase();
       expression = +value < +input1 && +value > +input2;
-      value, "|<| ", input1, "|&&|", value, "|>|", input2, expression;
     } else {
       input = inputValue;
       expression = value.includes(input.toLowerCase());
-      value, input, expression;
     }
 
     if (expression) {
@@ -359,10 +347,6 @@ const sortByNumber = function (columnName, sortOrder) {
 
   const allRowsArray = Array.from(allRows);
 
-  if (sortOrder === "no-sort") {
-    return allRowsArray;
-  }
-
   allRowsArray.sort((rowElement1, rowElement2) => {
     const a = +rowElement1.querySelector(`#col-${col}`).innerHTML;
     const b = +rowElement2.querySelector(`#col-${col}`).innerHTML;
@@ -377,6 +361,7 @@ const sortByNumber = function (columnName, sortOrder) {
 
 const sortByString = function (columnName, sortOrder) {
   const allRows = document.querySelectorAll(".row");
+
   let col;
   if (columnName === "first-name") col = 2;
   if (columnName === "last-name") col = 3;
@@ -386,10 +371,6 @@ const sortByString = function (columnName, sortOrder) {
   if (columnName === "title") col = 8;
 
   const allRowsArray = Array.from(allRows);
-
-  if (sortOrder === "no-sort") {
-    return allRowsArray;
-  }
 
   allRowsArray.sort((rowElement1, rowElement2) => {
     const string1 = rowElement1.querySelector(`#col-${col}`).innerHTML;
@@ -427,15 +408,23 @@ const setSort = function (exceptHeader, sortOrder) {
     }
   });
 
-  if (exceptHeader === "id" || exceptHeader === "salary") {
+  if (sortOrder === "no-sort") {
+    renderRows(sortByNumber("id", "ascending"));
+  }
+
+  if (
+    (exceptHeader === "id" || exceptHeader === "salary") &&
+    (sortOrder === "ascending" || sortOrder === "descending")
+  ) {
     renderRows(sortByNumber(exceptHeader, sortOrder));
   } else if (
-    exceptHeader === "first-name" ||
-    exceptHeader === "last-name" ||
-    exceptHeader === "email" ||
-    exceptHeader === "city" ||
-    exceptHeader === "phone" ||
-    exceptHeader === "title"
+    (exceptHeader === "first-name" ||
+      exceptHeader === "last-name" ||
+      exceptHeader === "email" ||
+      exceptHeader === "city" ||
+      exceptHeader === "phone" ||
+      exceptHeader === "title") &&
+    (sortOrder === "ascending" || sortOrder === "descending")
   ) {
     renderRows(sortByString(exceptHeader, sortOrder));
   }
@@ -680,10 +669,6 @@ headerSalary.addEventListener("click", function (e) {
   }
   setSort("salary", sortOrder);
 });
-
-const stopClickPropogation = function (e) {
-  e.stopPropagation();
-};
 
 inputId.addEventListener("click", function (e) {
   e.stopPropagation();
