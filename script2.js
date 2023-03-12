@@ -86,12 +86,10 @@ genderColumn.forEach((genderCell) => {
   });
 });
 
-//------------------------------------ROWS----------------------------------------------------
-const allRows = document.querySelectorAll(".row");
-
 //------------------------------FILTERS---------------------------------------------------------
 const filterById = function (inputValue) {
   //   (inputValue);
+  const allRows = document.querySelectorAll(".row");
   allRows.forEach((rowElement) => {
     // (inputValue);
     const value = rowElement.querySelector("#col-1").innerHTML.toLowerCase();
@@ -136,11 +134,13 @@ const filterById = function (inputValue) {
       rowElement.classList.remove("id-hide");
     } else {
       rowElement.classList.add("id-hide");
+      console.log(rowElement);
     }
   });
 };
 
 const filterByFirstName = function (inputValue) {
+  const allRows = document.querySelectorAll(".row");
   allRows.forEach((rowElement) => {
     const value = rowElement.querySelector("#col-2").innerHTML.toLowerCase();
     let input;
@@ -166,6 +166,7 @@ const filterByFirstName = function (inputValue) {
 };
 
 const filterByLastName = function (inputValue) {
+  const allRows = document.querySelectorAll(".row");
   allRows.forEach((rowElement) => {
     const value = rowElement.querySelector("#col-3").innerHTML.toLowerCase();
     let input;
@@ -191,6 +192,7 @@ const filterByLastName = function (inputValue) {
 };
 
 const filterByEmail = function (inputValue) {
+  const allRows = document.querySelectorAll(".row");
   allRows.forEach((rowElement) => {
     const value = rowElement.querySelector("#col-4").innerHTML.toLowerCase();
     let input;
@@ -216,6 +218,7 @@ const filterByEmail = function (inputValue) {
 };
 
 const filterByGender = function (inputValue) {
+  const allRows = document.querySelectorAll(".row");
   allRows.forEach((rowElement) => {
     const value = rowElement.querySelector("#col-5").innerHTML.toLowerCase();
     if (inputValue.toLowerCase() === "all") {
@@ -231,6 +234,7 @@ const filterByGender = function (inputValue) {
 };
 
 const filterByCity = function (inputValue) {
+  const allRows = document.querySelectorAll(".row");
   allRows.forEach((rowElement) => {
     const value = rowElement.querySelector("#col-6").innerHTML.toLowerCase();
     let input;
@@ -256,6 +260,7 @@ const filterByCity = function (inputValue) {
 };
 
 const filterByPhone = function (inputValue) {
+  const allRows = document.querySelectorAll(".row");
   allRows.forEach((rowElement) => {
     const value = rowElement.querySelector("#col-7").innerHTML.toLowerCase();
     let input;
@@ -281,6 +286,7 @@ const filterByPhone = function (inputValue) {
 };
 
 const filterByTitle = function (inputValue) {
+  const allRows = document.querySelectorAll(".row");
   allRows.forEach((rowElement) => {
     const value = rowElement.querySelector("#col-8").innerHTML.toLowerCase();
     let input;
@@ -306,6 +312,7 @@ const filterByTitle = function (inputValue) {
 };
 
 const filterBySalary = function (inputValue) {
+  const allRows = document.querySelectorAll(".row");
   allRows.forEach((rowElement) => {
     // (inputValue);
     const value = rowElement.querySelector("#col-9").innerHTML.toLowerCase();
@@ -358,6 +365,7 @@ const filterBySalary = function (inputValue) {
 const headers = document.querySelectorAll(".header");
 
 const sortByNumber = function (columnName, sortOrder) {
+  const allRows = document.querySelectorAll(".row");
   let col;
   if (columnName === "id") col = 1;
   if (columnName === "salary") col = 9;
@@ -381,6 +389,7 @@ const sortByNumber = function (columnName, sortOrder) {
 };
 
 const sortByString = function (columnName, sortOrder) {
+  const allRows = document.querySelectorAll(".row");
   let col;
   if (columnName === "first-name") col = 2;
   if (columnName === "last-name") col = 3;
@@ -443,7 +452,7 @@ const setSort = function (exceptHeader, sortOrder) {
   ) {
     renderRows(sortByString(exceptHeader, sortOrder));
   }
-  console.log(exceptHeader, sortOrder);
+  // console.log(exceptHeader, sortOrder);
 };
 
 //-----------------------------------------EVENT-LISTENERS------------------------------------------------
@@ -459,6 +468,7 @@ inputId.addEventListener("keyup", function (e) {
   ) {
     filterById(e.target.value);
   }
+  // console.log(e.target.value);
 });
 
 inputFirstName.addEventListener("keyup", function (e) {
@@ -682,4 +692,36 @@ headerSalary.addEventListener("click", function (e) {
     sortOrder = "no-sort";
   }
   setSort("salary", sortOrder);
+});
+
+const stopClickPropogation = function (e) {
+  e.stopPropagation();
+};
+
+inputId.addEventListener("click", function (e) {
+  e.stopPropagation();
+});
+inputFirstName.addEventListener("click", function (e) {
+  e.stopPropagation();
+});
+inputLastName.addEventListener("click", function (e) {
+  e.stopPropagation();
+});
+inputEmail.addEventListener("click", function (e) {
+  e.stopPropagation();
+});
+inputGender.addEventListener("click", function (e) {
+  e.stopPropagation();
+});
+inputCity.addEventListener("click", function (e) {
+  e.stopPropagation();
+});
+inputPhone.addEventListener("click", function (e) {
+  e.stopPropagation();
+});
+inputTitle.addEventListener("click", function (e) {
+  e.stopPropagation();
+});
+inputSalary.addEventListener("click", function (e) {
+  e.stopPropagation();
 });
